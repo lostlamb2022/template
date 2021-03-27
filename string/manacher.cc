@@ -1,11 +1,11 @@
 /*
-manacher模板，O(n)求最长回文子串以及子串长度
+O(n)求最长回文子串以及子串长度
 mr为当前已经求出的回文串的最右边的边界
 */
 const int N = 2e7 + 10; //插入#要开2倍+1
 int n;
 char a[N], b[N]; //原字符串和插之后的字符串
-int p[N];i为mid的最长回文半径p[i]
+int p[N]; i为mid的最长回文半径p[i]
 void init() {
     int k = 0;
     b[k++] = '$', b[k++] = '#';
@@ -34,5 +34,5 @@ int main() {
     manacher();
     int res = 0;
     for (int i = 0; i < n; i++) res = max(res, p[i]);
-    printf("%d\n", res - 1);  //插入之后的最长字串半径-1就是答案
+    printf("%d\n", res - 1);  //插入‘#’之后字符串的最长回文串半径长度减去1就是原串的最长回文子串长度
 }
