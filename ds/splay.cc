@@ -308,7 +308,7 @@ int main() {
     }
     return 0;
 }
-/*NOI2005《维护数列》：维护一个序列支持以下操作：
+/*NOI2005《维护数列》：维护一个序列（最少有一个数）
 INSERT posi tot在当前第posi个数字后面插入tot个数字
 DELETE posi tot在当前第posi个数字开始连续删除tot个数字
 MAKE-SAME posi tot c连续tot个改为相同的数c
@@ -321,7 +321,7 @@ const int N = 500010, INF = 1e9;
 int n, m;
 struct Node {
     int s[2], p, v;
-    int rev, same; //lazytag 反转 变成同一个数
+    int rev, same; //lazytag 翻转 变成同一个数
     int size, sum, ms, ls, rs; //区间和/最大子段和/最大前缀和/最大后缀和
     void init(int vv, int pp) {
         s[0] = s[1] = 0, p = pp, v = vv;
@@ -344,7 +344,7 @@ void pushup(int x) {
 void pushdown(int x) {
     auto &u = tr[x], &l = tr[u.s[0]], &r = tr[u.s[1]];
     if (u.same) {
-        u.same = u.rev = 0; //如果全部变为一个数，那么rev反转无意义
+        u.same = u.rev = 0; //全部变为一个数rev翻转无意义
         if (u.s[0]) l.same = 1, l.v = u.v, l.sum = l.v * l.size;
         if (u.s[1]) r.same = 1, r.v = u.v, r.sum = r.v * r.size;
         if (u.v > 0) {
@@ -359,7 +359,7 @@ void pushdown(int x) {
     else if (u.rev) {
         //注意交换的是前后缀，不是简单交换所有的节点信息
         //所以先交换前后缀然后单纯交换"子节点的子节点"
-        //到子节点的子节点pushdown的时候，直接交换前后缀就可以了
+        //到子节点的子节点pushdown的时，直接交换前后缀即可
         u.rev = 0, l.rev ^= 1, r.rev ^= 1;
         swap(l.ls, l.rs), swap(r.ls, r.rs);
         swap(l.s[0], l.s[1]), swap(r.s[0], r.s[1]);
@@ -446,9 +446,10 @@ int main() {
             int l = get_k(posi), r = get_k(posi + tot + 1);
             splay(l, 0), splay(r, l);
             auto &son = tr[tr[r].s[0]];
-            son.same = 1, son.v = c, son.sum = c * son.size; //打tag
+            //修改操作打 lazy tag
+            son.same = 1, son.v = c, son.sum = c * son.size;
             if (c > 0) son.ms = son.ls = son.rs = son.sum;
-            else son.ms = c, son.ls = son.rs = 0; //数列至少有一个数
+            else son.ms = c, son.ls = son.rs = 0; //最少一个数
             pushup(r), pushup(l);
         }
         else if (!strcmp(op, "REVERSE")) {
