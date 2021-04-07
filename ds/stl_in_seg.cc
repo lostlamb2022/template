@@ -14,13 +14,13 @@ struct Tree {
 int w[M]; //存储初始元素用来建树
 void build(int u, int l, int r) { //u是当前区间的编号 也就是节点的编号
     tr[u] = {l, r};
-    tr[u].s.insert(-INF), tr[u].s.insert(INF); //避免边界值 找不到
+    tr[u].s.insert(-INF), tr[u].s.insert(INF); //避免找不到
     for (int i = l; i <= r; i++)  tr[u].s.insert(w[i]);
     if (l == r) return;
     int mid = l + r >> 1;
     build(u << 1, l, mid), build(u << 1 | 1, mid + 1, r);
 }
-void change(int u, int p, int x) { //修改就是先删掉旧的 再插入新的
+void change(int u, int p, int x) { //修改是先删旧的再插新的
     tr[u].s.erase(tr[u].s.find(w[p]));  //find只找到第一个删掉 不是全部删除
     tr[u].s.insert(x);
     if (tr[u].l == tr[u].r) return;
@@ -29,7 +29,7 @@ void change(int u, int p, int x) { //修改就是先删掉旧的 再插入新的
     else change(u << 1 | 1, p, x);
 }
 int query(int u, int a, int b, int x) {
-    if (tr[u].l >= a && tr[u].r <= b) { //当前节点区间在所查区间内
+    if (tr[u].l >= a && tr[u].r <= b) {
         auto it = tr[u].s.lower_bound(x);
         -- it;
         return *it;
