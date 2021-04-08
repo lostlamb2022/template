@@ -9,13 +9,13 @@
 % 定义页眉页脚
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[R]{Algorithm Template}
+\fancyhead[C]{Algorithm Template}
 \renewcommand{\headrulewidth}{1pt}
 \renewcommand{\footrulewidth}{1pt}
-\lfoot{© Xiaobin Ren}
+% \lfoot{}
 % \fancyfoot[L]{© Xiaobin Ren}
-% \fancyfoot[R]{\thepage}
-\rfoot{\thepage}
+\fancyfoot[C]{\thepage}
+% \rfoot{\thepage}
 
 \author{Xiaobin Ren @ BUPT}
 \title{Algorithm For Competitive Programming}
@@ -94,6 +94,11 @@
 \inputminted[breaklines, linenos]{c++}{ds/seg_in_seg.cc}
 \subsection{AC自动机}
 \inputminted[breaklines, linenos]{c++}{ds/ac_auto.cc}
+\subsection{分块}
+\subsubsection{基本分块}
+\inputminted[breaklines, linenos]{c++}{ds/decompose.cc}
+\subsubsection{块状链表}
+\inputminted[breaklines, linenos]{c++}{ds/block_list.cc}
 
 
 \newpage  
