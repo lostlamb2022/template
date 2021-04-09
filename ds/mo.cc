@@ -38,7 +38,7 @@ int main() {
     }
     sort(q, q + m, cmp);
     //j是左边界指针 i是右边界指针 w[]下标都是从1开始
-    //初始i=0,j=1是为了正确计算[1,1]的结果 i,j均从0开始也可以
+    //初始i=0,j=1是为了正确计算[1,1]的结果
     for (int k = 0, i = 0, j = 1, res = 0; k < m; k ++) {
         int id = q[k].id, l = q[k].l, r = q[k].r;
         while (i < r) add(w[++i], res);
