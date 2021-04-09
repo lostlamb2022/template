@@ -2,6 +2,7 @@
 \usepackage{zh_CN-Adobefonts_external} % Simplified Chinese Support using external fonts (./fonts/zh_CN-Adobe/)
 \usepackage{fancyhdr}  % 页眉页脚
 \usepackage{minted} % 代码高亮
+\usemintedstyle{vs} %代码高亮颜色主题
 \usepackage[colorlinks]{hyperref}  % 目录可跳转
 \setlength{\headheight}{15pt}
 \hypersetup{colorlinks=false}
@@ -96,6 +97,17 @@
 \inputminted[breaklines, linenos]{c++}{ds/ac_auto.cc}
 \subsection{分块}
 \inputminted[breaklines, linenos]{c++}{ds/decompose.cc}
+\subsection{莫队算法}
+\subsubsection{朴素莫队}
+\inputminted[breaklines, linenos]{c++}{ds/mo.cc}
+\subsubsection{带修改莫队}
+\inputminted[breaklines, linenos]{c++}{ds/modify_mo.cc}
+\subsubsection{回滚莫队}
+\inputminted[breaklines, linenos]{c++}{ds/rollback_mo.cc}
+\subsubsection{树上莫队}
+\inputminted[breaklines, linenos]{c++}{ds/tree_mo.cc}
+\subsubsection{二次离线莫队}
+\inputminted[breaklines, linenos]{c++}{ds/offline_mo.cc}
 
 
 \newpage  
