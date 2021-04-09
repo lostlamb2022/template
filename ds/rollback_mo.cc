@@ -65,7 +65,7 @@ int main() {
         int i = right, j = right + 1;
         while (x < y) {
             int id = q[x].id, l = q[x].l, r = q[x].r;
-            while (i < r) add(w[++i], res); //处于右边块的后半截
+            while (i < r) add(w[++i], res); //右边块的后半截
             ll backup = res; //只需要保存这后半截的res
             while (j > l) add(w[--j], res); //暴力前半截处于前一个块的部分
             ans[id] = res;
