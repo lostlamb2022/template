@@ -59,3 +59,130 @@ int main() {
     }
     return 0;
 }
+/*Baltic2004《数字序列》：给定一个整数序列 a1,a2,...,an。求一个递增序列b1<b2<...<bn使得序列ai和bi的各项之差的绝对值之和 |a1−b1|+|a2−b2|+⋅⋅⋅+|an−bn| 最小。
+第一行输出绝对值之和的最小值。第二行输出b1,b2,...,bn任意方案即可。此题的本质是“改变序列中的元素使其单调的最小代价”,就是求一些点和线性回归方程的差值。复杂度O(NlogN)*/
+typedef long long ll;
+const int N = 1000010;
+int n;
+int v[N], dist[N], l[N], r[N];
+int ans[N];
+struct Segment {
+    int end, root, size;
+} stk[N];
+int merge(int x, int y) {
+    if (!x || !y) return x + y;
+    if (v[x] < v[y]) swap(x, y); //大根堆
+    r[x] = merge(r[x], y);
+    if (dist[r[x]] > dist[l[x]]) swap(r[x], l[x]);
+    dist[x] = dist[r[x]] + 1;
+    return x;
+}
+int pop(int x) {
+    //合并左右子树 就相当于删掉root
+    return merge(l[x], r[x]);
+}
+int main() {
+    scanf("%d", &n);
+    for (int i = 1; i <= n; i++) {
+        scanf("%d", &v[i]);
+        v[i] -= i;
+    }
+    int tt = 0;
+    for (int i = 1; i <= n; i++) {
+        auto cur = Segment({i, i, 1});
+        dist[i] = 1;
+        while (tt && v[cur.root] < v[stk[tt].root]) {
+            cur.root = merge(cur.root, stk[tt].root);
+            if (cur.size % 2 && stk[tt].size % 2)
+                cur.root = pop(cur.root);
+            cur.size += stk[tt].size;
+            tt --;
+        }
+        stk[++tt] = cur;
+    }
+    for (int i = 1, j = 1; i <= tt; i++) {
+        while (j <= stk[i].end)
+            ans[j++] = v[stk[i].root];
+    }
+    ll res = 0;
+    for (int i = 1; i <= n; i++) res += abs(v[i] - ans[i]);
+    printf("%lld\n", res);
+    for (int i = 1; i <= n; i++)
+        printf("%d ", ans[i] + i);
+    return 0;
+}
+/*POJ3016《K-单调》：将长度为N的序列修改元素值使其为K段单调序列，求最小代价。
+左偏树+DP,左偏树可以求出将一个序列单调的最少代价
+此题是分段单调,cost[i][j]表示将下标i~j这一段单调需要的代价
+f[i][j]表示将区间1~i的元素分成j段单调区间的代价 那么f[n][k]就是最终的答案
+假设最后一段的长度是k，那么递推关系：f[i][j] = f[i-k][j-1] + cost[i-k+1][i]
+将上升的v[i]取反之后相当于将坐标系沿x轴反转，此时的回归直线由单调上升变为单调下降，重新求一次即可,同时维护上升和下降序列二者之一最小值来更新答案。复杂度O(N^2logN)*/
+const int N = 1010;
+int n, m;
+int f[N][11], cost[N][N];
+int w[N], v[N], dist[N], l[N], r[N];
+struct Segment {
+    int root;
+    int tot_sum, tot_size;
+    int tree_sum, tree_size;
+    int get_cost() { //求出当前段内全部改为中位数的花费
+        int mid = v[root];
+        return mid * tree_size - tree_sum + tot_sum - tree_sum - (tot_size - tree_size) * mid;
+    }
+} stk[N];
+int merge(int x, int y) {
+    if (!x || !y) return x + y;
+    if (v[x] < v[y]) swap(x, y);
+    r[x] = merge(r[x], y);
+    if (dist[l[x]] < dist[r[x]]) swap(l[x], r[x]);
+    dist[x] = dist[r[x]] + 1;
+    return x;
+}
+int pop(int x) {
+    return merge(l[x], r[x]);
+}
+void get_cost(int u) {
+    int tt = 0, res = 0;
+    for (int i = u; i <= n; i++) {
+        auto  cur = Segment({i, v[i], 1, v[i], 1});
+        l[i] = r[i] = 0, dist[i] = 1;
+        while (tt && v[cur.root] < v[stk[tt].root]) {
+            //先减去上一段，合并之后重新求一次
+            res -= stk[tt].get_cost();
+            cur.root = merge(cur.root, stk[tt].root);
+            bool is_pop = cur.tot_size % 2 && stk[tt].tot_size % 2;
+            cur.tot_size += stk[tt].tot_size;
+            cur.tot_sum += stk[tt].tot_sum;
+            cur.tree_size += stk[tt].tree_size;
+            cur.tree_sum += stk[tt].tree_sum;
+            if (is_pop) {  //2段都是奇数 弹出当前中位数
+                cur.tree_size --;
+                cur.tree_sum -= v[cur.root];
+                cur.root = pop(cur.root);
+            }
+            tt --;
+        }
+        stk[++tt] = cur;
+        res += cur.get_cost(); //重新求合并之后的段
+        cost[u][i] = min(cost[u][i], res); //上升和下降求min
+    }
+}
+int main() {
+    scanf("%d%d", &n, &m);
+    for (int i = 1; i <= n; i++)scanf("%d", &w[i]);
+    memset(cost, 0x3f, sizeof cost);
+    for (int i = 1; i <= n; i++) v[i] = w[i] - i;
+    for (int i = 1; i <= n; i++) get_cost(i);
+    //取反求单调下降的最少代价
+    for (int i = 1; i <= n; i++) v[i] = -w[i] - i;
+    for (int i = 1; i <= n; i++) get_cost(i);
+    //DP
+    memset(f, 0x3f, sizeof f);
+    f[0][0] = 0;
+    for (int i = 1; i <= n; i++)
+        for (int j = 1; j <= m; j++) //枚举段数
+            for (int k = 1; k <= i; k++) //最后一段的长度
+                f[i][j] = min(f[i][j], f[i - k][j - 1] + cost[i - k + 1][i]);
+    printf("%d\n", f[n][m]);
+    return 0;
+}
