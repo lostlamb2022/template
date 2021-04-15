@@ -6,22 +6,30 @@ SA[i]记录排名为i非空后缀的编号,Height[i]记录排名为i非空后缀
 //倍增实现SA 复杂度O(N*logN)
 const int N = 1000010;
 int n, m; char s[N];
+//rk[i]是第i个后缀的排名
 int sa[N], x[N], y[N], c[N], rk[N], height[N];
 void get_sa() {
     for (int i = 1; i <= n; i ++ ) c[x[i] = s[i]] ++ ;
+    //统计小于每个关键字的元素有多少个
     for (int i = 2; i <= m; i ++ ) c[i] += c[i - 1];
+    //从后往前依次确定每个元素的排名 统计一个减一个
     for (int i = n; i; i -- ) sa[c[x[i]] -- ] = i;
+    //log(N)轮基数排序
     for (int k = 1; k <= n; k <<= 1) {
         int num = 0;
+        //将所有后缀按照第二关键字排序
+        //最后k个字符，没有第二关键字，最小所以先存下来
         for (int i = n - k + 1; i <= n; i ++ ) y[ ++ num] = i;
         for (int i = 1; i <= n; i ++ )
             if (sa[i] > k)
                 y[ ++ num] = sa[i] - k;
+        //再按照第一关键字排序
         for (int i = 1; i <= m; i ++ ) c[i] = 0;
         for (int i = 1; i <= n; i ++ ) c[x[i]] ++ ;
         for (int i = 2; i <= m; i ++ ) c[i] += c[i - 1];
         for (int i = n; i; i -- ) sa[c[x[y[i]]] -- ] = y[i], y[i] = 0;
         swap(x, y);
+        //将当前所有后缀的前2k个字符离散化
         x[sa[1]] = 1, num = 1;
         for (int i = 2; i <= n; i ++ )
             x[sa[i]] = (y[sa[i]] == y[sa[i - 1]] && y[sa[i] + k] == y[sa[i - 1] + k]) ? num : ++ num;
