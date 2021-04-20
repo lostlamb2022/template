@@ -1,18 +1,15 @@
-
-vector, 变长数组，倍增的思想
+vector, 变长数组倍增,支持比较运算按字典序
     size()  返回元素个数
     empty()  返回是否为空
     clear()  清空
     front()/back()
     push_back()/pop_back()
     begin()/end()
-    []
-    支持比较运算，按字典序
 
 pair<int, int>
     first, 第一个元素
     second, 第二个元素
-    支持比较运算，以first为第一关键字，以second为第二关键字（字典序）
+    比较运算:first为第一关键字,second为第二关键字（字典序）
 
 string，字符串
     size()/length()  返回字符串长度
@@ -35,7 +32,8 @@ priority_queue, 优先队列，默认是大根堆
     push()  插入一个元素
     top()  返回堆顶元素
     pop()  弹出堆顶元素
-    定义成小根堆的方式：priority_queue<int, vector<int>, greater<int>> q;
+    定义成小根堆的方式：
+    priority_queue<int, vector<int>, greater<int>> q;
 
 stack, 栈
     size()
@@ -54,7 +52,7 @@ deque, 双端队列
     begin()/end()
     []
 
-set, map, multiset, multimap, 基于平衡二叉树（红黑树），动态维护有序序列
+set, map, multiset, multimap,红黑树，动态维护有序序列
     size()
     empty()
     clear()
@@ -84,11 +82,8 @@ unordered_set, unordered_map, unordered_multiset, unordered_multimap, 哈希表
 
 bitset, 圧位
     bitset<10000> s;
-    ~, &, |, ^
-    >>, <<
-    ==, !=
-    []
-
+    ~, &, |, ^, >>, <<
+    ==, !=, []
     count()  返回有多少个1
     any()  判断是否至少有一个1
     none()  判断是否全为0
