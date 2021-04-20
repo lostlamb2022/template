@@ -6,7 +6,7 @@ char str[N];// 母串
 struct Node {
     int len, fa;
     int ch[4];
-} node[N * 2];
+} node[N * 2];//SAM开2倍点
 inline int get(char c) {//字母映射数字
     if (c == 'E') return 0;
     if (c == 'S') return 1;
@@ -97,7 +97,7 @@ int main() {
 }
 /*LOJ171《Multiple LCS》求n个字符串的最长公共子串
 将第一个串建SAM，然后后边的串和第一个匹配
-开一个now数组，每匹配一个串 就更新一次
+开now数组每匹配一个node就更新当前node维护的最值
 每次匹配失败，就跳到link后缀的node继续匹配，然后重新计算长度
 每次匹配一个串之后，要dfs一遍，用子节点来更新father节点*/
 const int N = 20010;
@@ -142,6 +142,8 @@ int main() {
     for (int i = 0; str[i]; i++) extend(str[i] - 'a');
     for (int i = 1; i <= tot; i++) ans[i] = node[i].len;
     memset(h, - 1, sizeof h);
+    //注意parent tree上的边建图dfs是反向的
+    //但是struct中保存的不是反向的
     for (int i = 2; i <= tot; i++) add(node[i].fa, i);
     for (int i = 0; i < n - 1; i++) {
         scanf("%s", str);
