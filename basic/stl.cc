@@ -80,7 +80,7 @@ unordered_set, unordered_map, unordered_multiset, unordered_multimap, 哈希表
     和上面类似，增删改查的时间复杂度是 O(1)
     不支持 lower_bound()/upper_bound()， 迭代器的++，--
 
-bitset, 圧位
+bitset, 压位
     bitset<10000> s;
     ~, &, |, ^, >>, <<
     ==, !=, []
