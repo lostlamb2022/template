@@ -72,12 +72,12 @@ int main() {
 用二维前缀和存每个矩阵内的元素和，标记sign为每个询问里面加上还是减去该矩阵求出子矩阵。用id来标记询问，这样才能同时处理加和减的操作，因为所有的操作都在一个数组中。
 此题由于只有原图的点和询问的点，所以不用树状数组，直接用sum存左半边的结果来更新右边即可。CDQ分治复杂度O(N*logN)此题也可用专门解决高维查询的KD-Tree解决。
 此题用CDQ分治不需要处理元素相同的情况 因为z维不相同。
-数据范围1<=n,m<=1e5,x1<=x2,y1<=y且为32位int范围*/
+数据范围1<=n,m<=1e5,x1<=x2,y1<=y2且为32位int范围*/
 typedef long long ll;
 const int N = 500010; // N + 4 * M
 int n, m;
 struct Data {
-    //p是点权 id是查询id sign加减符号
+    //p是点权,id是查询id,sign加减符号
     int x, y, z, p, id, sign;
     ll sum;
     bool operator< (const Data& t) const {
