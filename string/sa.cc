@@ -111,7 +111,8 @@ void get_height() {
 int main() {
     scanf("%d", &n);
     //逆序读入 然后离散化
-    for (int i = n; i; i--) scanf("%d", &s[i]), s[i] = get(s[i]);
+    for (int i = n; i; i--)
+        scanf("%d", &s[i]), s[i] = get(s[i]);
     get_sa();
     get_height();
     ll res = 0;
@@ -123,10 +124,14 @@ int main() {
     d[0] = 1, u[n + 1] = n;
     for (int i = 1; i <= n; i++) {
         ans[i] = res; //答案逆序存储
-        int k = rk[i], j = d[k]; //k是准备删去的后缀i, j是i排名后一位的后缀
-        //删掉i会影响排名i和i+1的lcp，此时排名i+1的后缀应该更新为和i-1的lcp
-        res -= n - sa[k] + 1 - height[k]; //后缀的长度减去height就是新的前缀的数量
-        res -= n - sa[j] + 1 - height[j]; //减去i和j之后，重新计算之后再加上
+        //k是准备删去的后缀i, j是i排名后一位的后缀
+        int k = rk[i], j = d[k];
+        //删掉i会影响排名i和i+1的lcp
+        //此时排名i+1的后缀应该更新为和i-1的lcp
+        //后缀的长度减去height就是新的前缀的数量
+        res -= n - sa[k] + 1 - height[k];
+        //减去i和j之后，重新计算之后再加上
+        res -= n - sa[j] + 1 - height[j];
         height[j] = min(height[j], height[k]); //更新lcp
         res += n - sa[j] + 1 - height[j];
         d[u[k]] = d[k], u[d[k]] = u[k]; //链表删除
