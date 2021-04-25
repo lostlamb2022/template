@@ -118,7 +118,7 @@ int main() {
     scanf("%d%d", &m, &n);
     S = 0, T = m + n + 1; //源点和汇点
     memset(h, -1, sizeof h);
-    //原点0 左边点集1-m 右边m+1-m+n 汇点m+n+1
+    //原点0 左边点集1~m 右边m+1~m+n 汇点m+n+1
     int tot = 0;
     for (int i = 1; i <= m; i++) {
         int c; scanf("%d", &c);
