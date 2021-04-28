@@ -1,27 +1,23 @@
-\documentclass[a4paper,12pt]{article}
+\documentclass[a4paper,10pt]{article}
 \usepackage{zh_CN-Adobefonts_external} % Simplified Chinese Support using external fonts (./fonts/zh_CN-Adobe/)
 \usepackage{fancyhdr}  % 页眉页脚
+\usepackage{geometry}
+\geometry{left=1in, right=1in, top=0.5in, bottom=0.5in}
 \usepackage{minted} % 代码高亮
 \usepackage[colorlinks]{hyperref}  % 目录可跳转
-\setlength{\headheight}{15pt}
 \hypersetup{colorlinks=false}
 
 % 定义页眉页脚
-\pagestyle{fancy}
 \fancyhf{}
-\fancyhead[C]{Algorithm Template}
-\renewcommand{\headrulewidth}{1pt}
-\renewcommand{\footrulewidth}{1pt}
-% \lfoot{}
-% \fancyfoot[L]{© Xiaobin Ren}
 \fancyfoot[C]{\thepage}
-% \rfoot{\thepage}
 
-\author{Xiaobin Ren @ BUPT}
-\title{Algorithm For Competitive Programming}
+\author{\textbf{Xiaobin Ren @ BUPT}}
+\title{\textbf{Algorithm For Competitive Programming}}
+\date{\textbf{\today}}
 
 \begin{document}
 \maketitle % 封面
+\setcounter{page}{0}
 \thispagestyle{empty} %封面不显示页码
 \newpage % 换页
 \tableofcontents % 目录
@@ -125,7 +121,6 @@
 \subsubsection{二次离线莫队}
 \inputminted[breaklines, linenos]{c++}{ds/offline_mo.cc}
 
-
 \newpage  
 \section{搜索}
 \subsection{BFS}
@@ -156,7 +151,6 @@
 \inputminted[breaklines, linenos]{c++}{search/dfs/ida.cc}
 \subsection{模拟退火}
 \inputminted[breaklines, linenos]{c++}{search/simulate_anneal.cc}
-
 
 \newpage
 \section{图论} % 一级标题
@@ -285,7 +279,6 @@
 \subsection{斜率优化DP}
 \inputminted[breaklines, linenos]{c++}{dp/xielv.cc}
 
-
 \newpage
 \section{字符串}
 \subsection{KMP}
@@ -303,13 +296,11 @@
 \subsection{后缀自动机}
 \inputminted[breaklines, linenos]{c++}{string/sam.cc}
 
-
 \newpage
 \section{比赛现场配置}
 \subsection{VIM现场赛配置}
 \inputminted[breaklines, linenos]{bash}{others/vim.bash}
 \subsection{Snippet代码头文件}
 \inputminted[breaklines, linenos]{c++}{others/head.cc}
-
 
 \end{document}
