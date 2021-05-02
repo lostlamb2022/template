@@ -1,4 +1,4 @@
-// 求x, y，使得ax + by = gcd(a, b)
+//求x, y，使得ax + by = gcd(a, b)
 int exgcd(int a, int b, int &x, int &y) {
     if (!b) {
         x = 1; y = 0;
@@ -17,10 +17,8 @@ void exgcd(ll a, ll b, ll &x, ll & y) {
         y -= a / b * x;
     }
 }
-/*
-关于x的同余方程 ax ≡ b(mod m) 的最小正整数解是(x*b/d%(m/d)+(m/d))%(m/d)
-通解是x0 + k * (m/d), d是gcd(a,m)
-*/
+/*ax同余b(mod m)的最小正整数解是(x*b/d%(m/d)+(m/d))%(m/d)
+通解是x0 + k * (m/d), d是gcd(a,m)*/
 int exgcd(int a, int b, int &x, int &y) {
     if (!b) {
         x = 1, y  = 0;
