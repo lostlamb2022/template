@@ -46,8 +46,8 @@ int main() {
     }
     return 0;
 }
-/*lucas定理1<=b<=a<=1e18,1<=p<=1e5,p是质数
-c(m,n)mod p, 复杂度 O(p*logm)
+/*lucas定理求c(m,n)mod p,复杂度 O(p*logm)
+1<=b<=a<=1e18,1<=p<=1e5,p是质数
 可以预处理阶乘和逆元达到O(p+logm)*/
 int p;
 ll qmi(ll a, ll b) {
@@ -139,7 +139,7 @@ int main() {
     get_primes(a);  //求出1 ~ a 中所有质数
     for (int i = 0; i < cnt; i++) {
         p = primes[i];
-        sum[i] = get(a) - get(b) - get(a - b); //整个组合数计算除式中的p的次数 0就相当于不减
+        sum[i] = get(a) - get(b) - get(a - b); //p的次数,0就相当于不减
     }
     vector<int> res;  //高精度乘法
     res.push_back(1);
@@ -151,7 +151,7 @@ int main() {
     return 0;
 }
 /*卡特兰数：Cat(n)=c(2n,n)/(n+1)对质数取模
-给定n个0和n个1，按照某种顺序排成长度为2n的序列，求排列成的所有序列中，能够满足任意前缀序列中0的个数都不少于1的个数的序列有多少个。输出的答案对1e9+7取模*/
+给定n个0和n个1，按照某种顺序排成长度为2n的序列，求排列成的所有序列中满足任意前缀序列中0的个数都不少于1的个数的序列有多少个。答案对1e9+7取模*/
 const int p = 1e9 + 7;
 typedef long long ll;
 ll qmi(ll a, ll b, int p) {
