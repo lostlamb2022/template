@@ -1,6 +1,4 @@
-/*
-对于给定的整数a,b和d，有多少正整数对x,y，满足x<=a，y<=b，并且gcd(x,y)=d
-*/
+/*给定整数a,b和d，有多少正整数对x,y满足x<=a，y<=b且gcd(x,y)=d*/
 const int N = 50010;
 int primes[N], cnt;
 bool st[N];

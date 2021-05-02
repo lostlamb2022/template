@@ -1,7 +1,4 @@
-/*
-倍数法求(1~N)每个数的正约数集合
-复杂度O(N*logN)
-*/
+/*倍数法求(1~N)每个数正约数集合O(N*logN)*/
 const int N = 10000;
 vector<int> factor[N];
 int n;
@@ -15,9 +12,7 @@ void calc(int n) {
         puts("");
     }
 }
-/*
-试除法求一个数的正约数集合O(sqrt(n))
-*/
+/*试除法求一个数的正约数集合O(sqrt(n))*/
 vector<int> get_divisors(int x) {
     vector<int> res;
     for (int i = 1; i <= x / i; i ++ )
@@ -28,12 +23,10 @@ vector<int> get_divisors(int x) {
     sort(res.begin(), res.end());
     return res;
 }
-/*
-约数个数：
+/*约数个数：
 如果 N = p1^c1 * p2^c2 * ... *pk^ck
 约数个数：(c1 + 1) * (c2 + 1) * ... * (ck + 1)
-*/
-//给定n个正整数ai，输出这些数的乘积的约数个数，答案对1e9+7取模。
+给定n个正整数ai，输出这些数的乘积的约数个数，答案对1e9+7取模*/
 const int mod = 1e9 + 7;
 //将每一个ai分解 然后把指数相加就是最后的乘积的质因数分解结果
 //约数个数就是指数加1再相乘即可
@@ -55,10 +48,8 @@ int main() {
     cout << res << endl;
     return 0;
 }
-/*
-约数之和：(p1^0+p1^1+...+p1^c1)*...* (pk^0 + pk^1 + ... + pk^ck)
-给定n个正整数ai，请你输出这些数的乘积的约数之和，答案对1e9+7取模
-*/
+/*给定n个正整数ai求这些数的乘积的约数之和对1e9+7取模
+(p1^0+p1^1+...+p1^c1)*...* (pk^0 + pk^1 + ... + pk^ck)*/
 typedef long long ll;
 const int mod = 1e9 + 7;
 int main() {
@@ -83,4 +74,3 @@ int main() {
     cout << res << endl;
     return 0;
 }
-
