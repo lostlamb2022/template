@@ -36,7 +36,7 @@ int main() {
     return 0;
 }
 /*
-堆优化版dijkstra时间复杂度 O(mlogn), n 表示点数，m 表示边数
+STL堆优化版dijkstra时间复杂度 O(mlogm), n 表示点数，m 表示边数
 */
 typedef pair<int, int> pii;
 const int N = 150010, M = 150010;
